@@ -14,37 +14,43 @@
 
 -- Nouns: peep, time, date, 
 
--- Table peeps [content, date, time]
--- Table users [email, username, name, password, user_id]
--- peeps_users [user_id, peep_id] -- connecting table
+-- Table peeps [content, datetime, user_id]
+-- Table users [email, username, name, password]
 
 -- Decide on the tables relationship
 -- 1. Can one user have many POSTS? <- foregin key
 
+DROP TABLE IF EXISTS peeps CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+
 -- Table 
-CREATE TABLE <table_name> (
+CREATE TABLE peeps (
   id SERIAL PRIMARY KEY,
-  <column> text,
-  <column> int
+  content text,
+  date_time text,
+  user_id int
 );
+
+-- sequence of args (content, user_id, date_time)
+INSERT INTO peeps (content, date_time, user_id) VALUES ('I learned SQL today, it was fun!', '2022-10-10 12:24:55', 1);
+INSERT INTO peeps (content, date_time, user_id) VALUES ('What a day, 5k run done!', '2022-10-17 12:24:55', 2);
+INSERT INTO peeps (content, date_time, user_id) VALUES ('Boris Johnson is crazy...', '2022-10-11 18:24:55', 3);
+INSERT INTO peeps (content, date_time, user_id) VALUES ('Anyone knows good restaurants in Central London?', '2022-10-14 16:24:55', 1);
+INSERT INTO peeps (content, date_time, user_id) VALUES ('#partytime Happy bDay to me!', '2022-10-12 13:24:55', 2);
 
 -- Table 2
-CREATE TABLE <table_name> (
+CREATE TABLE users (
   id SERIAL PRIMARY KEY,
-  <column> text,
-  <column> int
+  email text,
+  username text,
+  name text,
+  password text
 );
-INSERT INTO <table_name> (<columns>) VALUES (<values>);
 
+INSERT INTO users (email, username, name, password) VALUES ('aminaba666@gmail.com', 'xAmiBa', 'Amina Ba', 'password_amina33');
+INSERT INTO users (email, username, name, password) VALUES ('davidQQQ@gmail.com', 'Davido999', 'David', 'password_david777');
+INSERT INTO users (email, username, name, password) VALUES ('joe_python@gmail.com', 'Crazy_Joe', 'Joe Smith', 'password_joe8!');
 
--- Table 3 (connecting table)
-CREATE TABLE posts_tags (
-  post_id int,
-  tag_id int,
-  constraint fk_post foreign key(post_id) references posts(id) on delete cascade,
-  constraint fk_tag foreign key(tag_id) references tags(id) on delete cascade,
-  PRIMARY KEY (post_id, tag_id)
-);
 
 -- Write file into database in terminal
--- psql -h 127.0.0.1 database_name < table_name.sql
+-- psql -h 127.0.0.1 chitter < seeds/chitter.sql

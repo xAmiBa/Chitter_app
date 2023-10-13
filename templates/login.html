@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+		<title>Login to Chitter</title>
+		<meta charset=”UTF-8”>
+	</head>
+  <body>
+    <h1>Login to Chitter!</h1>
+
+    <form action="/login" method="POST">
+        {% if errors %}
+        <ul>
+        <p>
+            {% for error in errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </p>
+        </ul>
+        {% endif %}
+
+        <p>
+            <label for="username">Your username</label>
+            <br>
+            <input type="text" name="username" id="'username">
+        </p>
+        
+        <p>
+            <label for="password">Your password</label>
+            <br>
+            <input type="text" name="password" id="'password">
+        </p>
+        <p>
+            <input type="submit" value="Log in">
+        </p>
+    </form>
+
+  </body>
+</html>

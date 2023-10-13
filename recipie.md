@@ -24,8 +24,8 @@ I want to sign up for Chitter
     * PeepRepository
     * Peep
         * content
-        * `date`
-        * time
+        * datetime
+        * user_id
     * User
         * self.email (unique)
         * self.password

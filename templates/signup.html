@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+		<title>Signup to Chitter</title>
+		<meta charset=”UTF-8”>
+	</head>
+  <body>
+    <h1>Signup to Chitter!</h1>
+
+    <form action="/signup" method="POST">
+        {% if errors %}
+        <ul>
+        <p>
+            {% for error in errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </p>
+        </ul>
+        {% endif %}
+
+        <p>
+            <label for="name">Your full name</label>
+            <br>
+            <input type="text" name="name" id="'name">
+        </p>
+        
+        <p>
+            <label for="email">Your email</label>
+            <br>
+            <input type="text" name="email" id="'email">
+        </p>
+        
+        <p>
+            <label for="username">Your username</label>
+            <br>
+            <input type="text" name="username" id="'username">
+        </p>
+
+        <p>
+            <label for="name">Your password</label>
+            <br>
+            <input type="text" name="password" id="'password">
+        </p>
+        <p>
+            <input type="submit" value="Sign up">
+        </p>
+    </form>
+
+  </body>
+</html>
