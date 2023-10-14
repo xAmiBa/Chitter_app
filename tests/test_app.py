@@ -1,7 +1,5 @@
 from playwright.sync_api import Page, expect
 import pytest
-from unittest.mock import Mock
-
 
 def test_index_page(page, test_web_address):
     page.goto(f"http://{test_web_address}/")
@@ -23,7 +21,6 @@ def test_signup_form(db_connection, page, test_web_address):
     page.fill("input[name='password']", "testpassword123!")
     
     page.click("text=Sign up")
-    page.screenshot(path="screenshot.png", full_page=True)
 
     title_element = page.locator("h3")
     expect(title_element).to_have_text("Your signup was successful User1! Now log in.")
@@ -74,8 +71,6 @@ def test_username_login_fail(db_connection, test_web_address, page):
     page.fill("input[name='password']", "password_amina33")
 
     page.click("text=Log in")
-    page.screenshot(path="screenshot.png", full_page=True)
-
 
     li_tag = page.locator("li")
     expect(li_tag).to_have_text(["Username is not valid!", "Password is not valid!"])
@@ -91,7 +86,6 @@ def test_password_login_fail(db_connection, test_web_address, page):
     page.fill("input[name='password']", "wrong password")
 
     page.click("text=Log in")
-    page.screenshot(path="screenshot.png", full_page=True)
 
     li_tag = page.locator("li")
     expect(li_tag).to_have_text("Password is not valid!")
@@ -106,7 +100,6 @@ def test_login_success(db_connection, test_web_address, page):
     page.fill("input[name='password']", "password_amina33")
 
     page.click("text=Log in")
-    page.screenshot(path="screenshot.png", full_page=True)
 
     title_tag = page.locator("h3")
     expect(title_tag).to_have_text("See what's happening xAmiBa...")
@@ -138,10 +131,7 @@ def test_get_new_post(db_connection, test_web_address, page):
     page.click("text=Log in")
 
     page.fill("input[name='content']", "New test post on chitter.")
-    page.screenshot(path="screenshot.png", full_page=True)
     page.click("text=Add peep")
-    page.screenshot(path="screenshot2.png", full_page=True)
-
 
     peeps = page.locator(".t-peep")
     expect(peeps).to_have_text(['New test post on chitter.',
