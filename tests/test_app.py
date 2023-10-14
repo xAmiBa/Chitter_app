@@ -1,5 +1,6 @@
 from playwright.sync_api import Page, expect
 import pytest
+from unittest.mock import Mock
 
 
 def test_index_page(page, test_web_address):
@@ -10,8 +11,6 @@ def test_index_page(page, test_web_address):
     page.click('text=Signup to Chitter')
     signup_title_tag = page.locator('h1')
     expect(signup_title_tag).to_have_text('Signup to Chitter!')
-
-    #TODO: add test for login
 
 def test_signup_form(db_connection, page, test_web_address):
     db_connection.seed('seeds/chitter.sql')
@@ -112,7 +111,57 @@ def test_login_success(db_connection, test_web_address, page):
     title_tag = page.locator("h3")
     expect(title_tag).to_have_text("See what's happening xAmiBa...")
 
-# TODO: test peeps desplay, implement chronologial peeps
-# def test_see_all_peeps(db_connection, test_web_address, page):
-#     db_connection.seed('seeds/chitter.sql')
-#     page.goto(f"http://{test_web_address}/homepage")
+
+def test_see_all_peeps_chronologicaly(db_connection, test_web_address, page):
+    db_connection.seed('seeds/chitter.sql')
+    page.goto(f"http://{test_web_address}/homepage")
+
+    peeps = page.locator(".t-peep")
+    expect(peeps).to_have_text([
+        'What a day, 5k run done! @xAmiBa',
+        'Anyone knows good restaurants in Central London?',
+        '#partytime Happy bDay to me!',
+        'Boris Johnson is crazy...',
+        'I learned SQL today, it was fun!'])
+
+
+
+def test_get_new_post(db_connection, test_web_address, page):
+
+    db_connection.seed('seeds/chitter.sql')
+    page.goto(f"http://{test_web_address}")
+
+    page.click("text=Login to Chitter")
+    page.fill("input[name='username']", "xAmiBa")
+    page.fill("input[name='password']", "password_amina33")
+
+    page.click("text=Log in")
+
+    page.fill("input[name='content']", "New test post on chitter.")
+    page.screenshot(path="screenshot.png", full_page=True)
+    page.click("text=Add peep")
+    page.screenshot(path="screenshot2.png", full_page=True)
+
+
+    peeps = page.locator(".t-peep")
+    expect(peeps).to_have_text(['New test post on chitter.',
+                                'What a day, 5k run done! @xAmiBa',
+                                'Anyone knows good restaurants in Central London?',
+                                '#partytime Happy bDay to me!',
+                                'Boris Johnson is crazy...',
+                                'I learned SQL today, it was fun!'])
+
+def test_if_logout_button_exist(page, db_connection, test_web_address):
+    db_connection.seed('seeds/chitter.sql')
+    page.goto(f"http://{test_web_address}")
+
+    page.click("text=Login to Chitter")
+    page.fill("input[name='username']", "xAmiBa")
+    page.fill("input[name='password']", "password_amina33")
+
+    page.click("text=Log in")
+
+    page.click("text=Log out")
+
+    title_tag = page.locator('h3')
+    expect(title_tag).to_have_text('You just logged out. Goodbye!')

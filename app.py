@@ -83,7 +83,8 @@ def post_login():
         peep_repository = PeepRepository(connection)
         peeps = peep_repository.all()
         users = UserRepository(connection)
-        return render_template(f'homepage_logged.html', users=users, peeps=peeps)
+        logged = True
+        return render_template(f'homepage.html', users=users, peeps=peeps, logged=logged, user=users.search_by_username(input_username))
 
 # GET /homepage
     # everyone can acces but not post   
@@ -92,28 +93,32 @@ def get_homepage():
     connection = get_flask_database_connection(app)
     users = UserRepository(connection)
 
-    # TODO: peeps list
     peep_repository = PeepRepository(connection)
     peeps = peep_repository.all()
     return render_template('homepage.html', peeps=peeps, users=users)
     
 
-    
-        
-    
+# POST /post
+@app.route('/post', methods=['POST'])
+def get_post():
+    connection = get_flask_database_connection(app)
+    user_id = request.form['user_id']
+    content = request.form['content']
+    new_peep = Peep(None, content, user_id)
+    repository = PeepRepository(connection)
+    repository.add(new_peep)
+    peeps = repository.all()
+    users = UserRepository(connection)
+    logged = True
+    username = users.search_username_by_user_id(user_id)
+    return render_template(f'homepage.html', users=users, peeps=peeps, logged=logged, user=users.search_by_username(username))
 
-
-    # search if password match password_valid() and redirect to homepage, else: error
-
-
-
-
-
-# GET /homepage/<unername>
-# @app.route('/homepage/<username>', methods=['GET'])
-# def get_homepage():
-#     # add peeps from peeps repository
-#     return render_template('homepage.html', peeps=peeps)
+# GET /homepage -> logout
+@app.route('/logout', methods=['GET'])
+def get_logout():
+    message = "You just logged out. Goodbye!"
+    logged = False
+    return render_template('index.html', message=message)
 
 if __name__ == '__main__':
     app.run(debug=True, port=int(os.environ.get('PORT', 5001)))

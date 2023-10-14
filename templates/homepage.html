@@ -6,18 +6,39 @@
     </head>
     <body>
       <h1>Chitter</h1>
-        <p>{% if user%}
-            <h3>See what's happening {{user.username}}...</h3>
-            {% else %}
-            <h3>See what's happening...</h3>
-            {% endif %}</p>
- 
-    {% if peeps %}
-    {% for peep in peeps %}
-    <p>{{peep.content}}</p>
-    <p><i>by {{users.search_username_by_user_id(peep.user_id)}} at {{peep.date_time}}</i></p>
-    <hr>
-    {% endfor %}
-    {% endif %}
+
+      {% if user %}
+      <h3>See what's happening {{user.username}}...</h3>
+      {% else %}
+      <h3>See what's happening...</h3>
+      {% endif %}
+
+        <p class="t-new_peep">
+            {% if logged == True  %}
+            <form action="/post" method="POST">
+                <p>
+                    <label for="content">New Post</label>
+                    <input type="text" name="content" id="content">
+                    <input type="hidden" name="user_id" id="user_id" value="{{user.id}}">
+                </p>
+                <p>
+                    <input type="submit" value="Add peep">
+                </p>
+            </form>
+            {% endif %}
+        </p>
+    <p>
+        {% if peeps %}
+        {% for peep in peeps %}
+        <p class="t-peep">{{peep.content}}</p>
+        <br>
+        <p><i>by {{users.search_username_by_user_id(peep.user_id)}} at {{peep.date_time}}</i></p>
+        <hr>
+        {% endfor %}
+        {% endif %}
+    </p>
+    <p>
+        <a href="/logout">Log out</a>
+    </p>
   </body>
 </html>
