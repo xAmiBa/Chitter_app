@@ -5,7 +5,9 @@
 		<meta charset=”UTF-8”>
 	</head>
   <body>
-    <h1>Signup to Chitter!</h1>
+    <center>
+    <img src="static/chitter_icon.png" alt="Chitter icon with chat clouds" style="width: 60px; height: 60;">
+    <h1 style="color:rgb(55, 154, 203)">Signup to Chitter!</h1>
 
     <form action="/signup" method="POST">
         {% if errors %}
@@ -45,6 +47,9 @@
             <input type="submit" value="Sign up">
         </p>
     </form>
+    <br>
+    <a href="/">go back</a>
+    </center>
 
   </body>
 </html>

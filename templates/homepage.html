@@ -5,13 +5,17 @@
 		<meta charset=”UTF-8">
     </head>
     <body>
-      <h1>Chitter</h1>
+        <center>
+        <img src="static/chitter_icon.png" alt="Chitter icon with chat clouds"
+        style="width: 60px; height: 60;">
+      <h1 style="color:rgb(55, 154, 203)">CHITTER</h1>
 
       {% if user %}
       <h3>See what's happening {{user.username}}...</h3>
       {% else %}
       <h3>See what's happening...</h3>
       {% endif %}
+        </center>
 
         <p class="t-new_peep">
             {% if logged == True  %}
@@ -31,14 +35,17 @@
         {% if peeps %}
         {% for peep in peeps %}
         <p class="t-peep">{{peep.content}}</p>
-        <br>
-        <p><i>by {{users.search_username_by_user_id(peep.user_id)}} at {{peep.date_time}}</i></p>
+        <p style="color:rgb(228, 202, 33)"><i>by {{users.search_username_by_user_id(peep.user_id)}} at {{peep.date_time}}</i></p>
         <hr>
         {% endfor %}
         {% endif %}
     </p>
+    <center>
+    {% if user %}
     <p>
         <a href="/logout">Log out</a>
     </p>
+    {% endif %}
+    </center>
   </body>
 </html>
