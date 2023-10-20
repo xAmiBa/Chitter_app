@@ -31,7 +31,7 @@ jobs:
       - name: Create and connect to a db
         run: |
           createdb chitter_test
-          psql -h localhost -U postgres -d chitter_test
+        #   psql -h localhost -U postgres -d chitter_test
 
 
       - name: Update playwright
