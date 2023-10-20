@@ -1,4 +1,8 @@
 from lib.User import User
+import hashlib
+
+test_pass = "testpassword".encode("utf-8")
+print(hashlib.sha256(test_pass).hexdigest())
 
 class UserRepository:
     def __init__(self, connection):
@@ -8,10 +12,17 @@ class UserRepository:
         rows = self._connection.execute("SELECT * FROM users;")
         users = [User(row['id'], row['email'], row['username'], row['name'], row['password']) for row in rows]
         return users
+    
+    def hash_password(self, user_object):
+        user_object.password = user_object.password.encode("utf-8")
+        user_object.password = hashlib.sha256(user_object.password).hexdigest()
+        return User(user_object.id, user_object.email, user_object.username, user_object.name, user_object.password)
 
     def add(self, user_object):
+        user_object = self.hash_password(user_object)
         self._connection.execute("INSERT INTO users (email, username, name, password) VALUES (%s, %s, %s, %s);",
                                  [user_object.email, user_object.username, user_object.name, user_object.password])
+        
 
     # SIGNUP method validating if username and email are unique
     def validate_if_unique(self, user_object):
@@ -83,7 +94,9 @@ class UserRepository:
         row = rows[0]
         user = User(row['id'], row['email'], row['username'], row['name'], row['password'])
 
-        if user.password == password:
+        hashed_password = hashlib.sha256(password.encode("utf-8")).hexdigest()
+
+        if user.password == hashed_password:
             return True
         else:
             return False

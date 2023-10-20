@@ -9,11 +9,11 @@ database is updated
 def test_add_user(db_connection):
     db_connection.seed('seeds/chitter.sql')
     repository = UserRepository(db_connection)
-    repository.add(User(None, "test_email@gmail.com", "Test username", "Test name", "Test password"))
+    repository.add(User(None, "test_email@gmail.com", "Test username", "Test name", "testpassword"))
     assert repository.all() == [User(1, 'aminaba666@gmail.com', 'xAmiBa', 'Amina Ba', 'password_amina33'),
                                 User(2, 'davidQQQ@gmail.com', 'Davido999', 'David', 'password_david777'),
                                 User(3, 'joe_python@gmail.com', 'Crazy_Joe', 'Joe Smith', 'password_joe8!'),
-                                User(4, "test_email@gmail.com", "Test username", "Test name", "Test password")]
+                                User(4, "test_email@gmail.com", "Test username", "Test name", "9f735e0df9a1ddc702bf0a1a7b83033f9f7153a00c29de82cedadc9957289b05")]
 
 
 
@@ -100,3 +100,10 @@ def tests_password_valid(db_connection):
     db_connection.seed('seeds/chitter.sql')
     repository = UserRepository(db_connection)
     assert repository.search_username_by_user_id(2) == "Davido999"
+
+def test_hash_password(db_connection):
+    db_connection.seed('seeds/chitter.sql')
+    repo = UserRepository(db_connection)
+
+    password = User(5, 'aminaba666@gmail.com', 'xAmiBa', 'Amina Ba', 'testpassword')
+    assert repo.hash_password(password) == User(5, 'aminaba666@gmail.com', 'xAmiBa', 'Amina Ba', '9f735e0df9a1ddc702bf0a1a7b83033f9f7153a00c29de82cedadc9957289b05')
