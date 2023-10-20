@@ -29,7 +29,7 @@ jobs:
       - name: start postgres service
         run: |
           sudo systemctl start postgresql.service
-          
+        #BUG: seems like it is initiated and then exits   
       - name: Check PostgreSQL Service Status
         run: |
           sudo systemctl status postgresql
