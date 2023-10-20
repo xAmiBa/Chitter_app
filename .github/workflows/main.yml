@@ -25,14 +25,14 @@ jobs:
         run: |
           sudo apt update
           sudo apt install postgresql postgresql-contrib
+      
+      - name: start postgres service
+        run: |
           sudo systemctl start postgresql.service
-          sudo -i -u postgres
 
       - name: Create and connect to a db
         run: |
-          createdb chitter_test
-        #   psql -h localhost -U postgres -d chitter_test
-
+          sudo -u postgres createdb chitter_test
 
       - name: Update playwright
         run: | 
