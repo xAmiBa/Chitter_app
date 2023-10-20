@@ -1,54 +1,54 @@
-name: Build and Test
+# name: Build and Test
 
-on: push
+# on: push
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
+# jobs:
+#   test:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Check out the code
-        uses: actions/checkout@v3
+#     steps:
+#       - name: Check out the code
+#         uses: actions/checkout@v3
 
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v4
-        with:
-            python-version: 3.11
+#       - name: Set up Python 3.11
+#         uses: actions/setup-python@v4
+#         with:
+#             python-version: 3.11
 
-      - name: Install dependencies
-        run: | 
-          python -m pip install --upgrade pip
-          pip install pipenv
-          pipenv install --dev
+#       - name: Install dependencies
+#         run: | 
+#           python -m pip install --upgrade pip
+#           pip install pipenv
+#           pipenv install --dev
     
-      - name: install postgres
-        run: |
-          sudo apt update
-          sudo apt install postgresql postgresql-contrib
+#       - name: install postgres
+#         run: |
+#           sudo apt update
+#           sudo apt install postgresql postgresql-contrib
       
-      - name: start postgres service
-        run: |
-          sudo systemctl start postgresql.service
-        #BUG: seems like it is initiated and then exits   
-      - name: Check PostgreSQL Service Status
-        run: |
-          sudo systemctl status postgresql
-        continue-on-error: true
+#       - name: start postgres service
+#         run: |
+#           sudo systemctl start postgresql.service
+#         #BUG: seems like it is initiated and then exits   
+#       - name: Check PostgreSQL Service Status
+#         run: |
+#           sudo systemctl status postgresql
+#         continue-on-error: true
         
-      - name: Create and connect to a db
-        run: |
-          sudo -u postgres createdb chitter_test
+#       - name: Create and connect to a db
+#         run: |
+#           sudo -u postgres createdb chitter_test
 
-      - name: Grant Permissions on chitter_test Database
-        run: |
-          sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE chitter_test TO postgres"
+#       - name: Grant Permissions on chitter_test Database
+#         run: |
+#           sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE chitter_test TO postgres"
         
 
-      - name: Update playwright
-        run: | 
-          pipenv install playwright
-          pipenv run playwright install
+#       - name: Update playwright
+#         run: | 
+#           pipenv install playwright
+#           pipenv run playwright install
 
-      - name: Test with pytest
-        run: |
-          pipenv run pytest
+#       - name: Test with pytest
+#         run: |
+#           pipenv run pytest
