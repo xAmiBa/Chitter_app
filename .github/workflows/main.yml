@@ -29,10 +29,20 @@ jobs:
       - name: start postgres service
         run: |
           sudo systemctl start postgresql.service
-
+          
+      - name: Check PostgreSQL Service Status
+        run: |
+          sudo systemctl status postgresql
+        continue-on-error: true
+        
       - name: Create and connect to a db
         run: |
           sudo -u postgres createdb chitter_test
+
+      - name: Grant Permissions on chitter_test Database
+        run: |
+          sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE chitter_test TO postgres"
+        
 
       - name: Update playwright
         run: | 

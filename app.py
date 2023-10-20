@@ -120,11 +120,5 @@ def get_logout():
     logged = False
     return render_template('index.html', message=message)
 
-# if __name__ == '__main__':
-#     app.run(debug=True, port=int(os.environ.get('PORT', 5001)))
-
 if __name__ == '__main__':
-    app.run(
-      debug=True,
-      host="0.0.0.0", # Listen for connections _to_ any server
-    )
+    app.run(debug=True, port=int(os.environ.get('PORT', 5001)))
