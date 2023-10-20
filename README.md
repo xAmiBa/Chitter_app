@@ -13,7 +13,7 @@ The main application logic is contained in `app.py`, utilizing the Flask web fra
 - `POST /signup`: Sign-up submission.
 - `GET /login`: Login page.
 - `POST /login`: Login submission.
-- `GET /homepage`: Access the homepage and view peeps.
+- `GET /home`: Access the homepage and view peeps.
 - `POST /post`: Submit a new peep.
 - `GET /logout`: Log out.
 

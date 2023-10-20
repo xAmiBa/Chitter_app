@@ -84,18 +84,18 @@ def post_login():
         peeps = peep_repository.all()
         users = UserRepository(connection)
         logged = True
-        return render_template(f'homepage.html', users=users, peeps=peeps, logged=logged, user=users.search_by_username(input_username))
+        return render_template(f'home.html', users=users, peeps=peeps, logged=logged, user=users.search_by_username(input_username))
 
-# GET /homepage
+# GET /home
     # everyone can acces but not post   
-@app.route('/homepage', methods=['GET'])
+@app.route('/home', methods=['GET'])
 def get_homepage():
     connection = get_flask_database_connection(app)
     users = UserRepository(connection)
 
     peep_repository = PeepRepository(connection)
     peeps = peep_repository.all()
-    return render_template('homepage.html', peeps=peeps, users=users)
+    return render_template('home.html', peeps=peeps, users=users)
     
 
 # POST /post
@@ -111,9 +111,9 @@ def get_post():
     users = UserRepository(connection)
     logged = True
     username = users.search_username_by_user_id(user_id)
-    return render_template(f'homepage.html', users=users, peeps=peeps, logged=logged, user=users.search_by_username(username))
+    return render_template(f'home.html', users=users, peeps=peeps, logged=logged, user=users.search_by_username(username))
 
-# GET /homepage -> logout
+# GET /home -> logout
 @app.route('/logout', methods=['GET'])
 def get_logout():
     message = "You just logged out. Goodbye!"

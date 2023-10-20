@@ -107,7 +107,7 @@ def test_login_success(db_connection, test_web_address, page):
 
 def test_see_all_peeps_chronologicaly(db_connection, test_web_address, page):
     db_connection.seed('seeds/chitter.sql')
-    page.goto(f"http://{test_web_address}/homepage")
+    page.goto(f"http://{test_web_address}/home")
 
     peeps = page.locator(".t-peep")
     expect(peeps).to_have_text([
