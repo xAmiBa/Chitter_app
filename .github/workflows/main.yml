@@ -24,6 +24,7 @@ jobs:
       - name: Update playwright
         run: | 
           pipenv install playwright
+          pipenv run playwright install
 
       - name: Test with pytest
         run: |
