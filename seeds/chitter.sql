@@ -47,7 +47,7 @@ CREATE TABLE users (
   password text
 );
 
-INSERT INTO users (email, username, name, password) VALUES ('aminaba666@gmail.com', 'xAmiBa', 'Amina Ba', 'password_amina33');
+INSERT INTO users (email, username, name, password) VALUES ('aminaba666@gmail.com', 'xAmiBa', 'Amina Ba', 'ccb3be5cb5df7ba694a3896b09f26d7adb0cee5ffaa9ab680094d05c3fd9da8e');
 INSERT INTO users (email, username, name, password) VALUES ('davidQQQ@gmail.com', 'Davido999', 'David', 'password_david777');
 INSERT INTO users (email, username, name, password) VALUES ('joe_python@gmail.com', 'Crazy_Joe', 'Joe Smith', 'password_joe8!');
 

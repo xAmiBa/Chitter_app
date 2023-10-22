@@ -10,7 +10,7 @@ def test_add_user(db_connection):
     db_connection.seed('seeds/chitter.sql')
     repository = UserRepository(db_connection)
     repository.add(User(None, "test_email@gmail.com", "Test username", "Test name", "testpassword"))
-    assert repository.all() == [User(1, 'aminaba666@gmail.com', 'xAmiBa', 'Amina Ba', 'password_amina33'),
+    assert repository.all() == [User(1, 'aminaba666@gmail.com', 'xAmiBa', 'Amina Ba', 'ccb3be5cb5df7ba694a3896b09f26d7adb0cee5ffaa9ab680094d05c3fd9da8e'),
                                 User(2, 'davidQQQ@gmail.com', 'Davido999', 'David', 'password_david777'),
                                 User(3, 'joe_python@gmail.com', 'Crazy_Joe', 'Joe Smith', 'password_joe8!'),
                                 User(4, "test_email@gmail.com", "Test username", "Test name", "9f735e0df9a1ddc702bf0a1a7b83033f9f7153a00c29de82cedadc9957289b05")]
@@ -78,7 +78,7 @@ def tests_search_by_username(db_connection):
     db_connection.seed('seeds/chitter.sql')
     repository = UserRepository(db_connection)
 
-    assert repository.search_by_username("xAmiBa") == User(1, 'aminaba666@gmail.com', 'xAmiBa', 'Amina Ba', 'password_amina33')
+    assert repository.search_by_username("xAmiBa") == User(1, 'aminaba666@gmail.com', 'xAmiBa', 'Amina Ba', 'ccb3be5cb5df7ba694a3896b09f26d7adb0cee5ffaa9ab680094d05c3fd9da8e')
 
 
 """

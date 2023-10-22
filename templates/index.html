@@ -3,11 +3,12 @@
   <head>
 		<title>Chitter</title>
 		<meta charset=”UTF-8">
+    <link rel="stylesheet" href="static/style.css" />
 	</head>
-  <body>
+  <body class="css-selector">
     <center>
-    <img src="static/chitter_icon.png" alt="Chitter icon with chat clouds" style="width: 60px; height: 60;">
-    <h1 style="color:rgb(55, 154, 203)">Welcome to Chitter!</h1>
+    <img src="static/icons8-chat-message-96.png" alt="Chitter icon with chat clouds" style="width: 60px; height: 60;">
+    <h1 class="header1">Welcome to Chitter!</h1>
 
     <p>
     {% if message %}
@@ -16,16 +17,16 @@
     </p>
 
     <p>
-        <a href="/login">Login to Chitter</a>
+        <a class="button1" href="/login">Login to Chitter</a>
     </p>
     <p>
         Don't have an accout?
-        <br>
-        <a href="/signup">Signup to Chitter</a>
+        <br><br>
+        <a class="button1" href="/signup">Signup to Chitter</a>
     </p>
     <p>
         <br>
-        <a href="/home">Browse Chitter as a guest</a>
+        <a class="button1" href="/home">Browse Chitter as a guest</a>
     </p>
     </center>
   </body>

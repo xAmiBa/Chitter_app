@@ -1,9 +1,6 @@
 from lib.User import User
 import hashlib
 
-test_pass = "testpassword".encode("utf-8")
-print(hashlib.sha256(test_pass).hexdigest())
-
 class UserRepository:
     def __init__(self, connection):
         self._connection = connection
@@ -107,3 +104,9 @@ class UserRepository:
                                         [user_id])
         row = rows[0]
         return row['username']
+
+
+# ccb3be5cb5df7ba694a3896b09f26d7adb0cee5ffaa9ab680094d05c3fd9da8e
+# password = "amina_password33"
+# password = password.encode("utf-8")
+# print(hashlib.sha256(password).hexdigest())

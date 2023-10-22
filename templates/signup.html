@@ -3,11 +3,12 @@
   <head>
 		<title>Signup to Chitter</title>
 		<meta charset=”UTF-8”>
+        <link rel="stylesheet" href="static/style.css" />
 	</head>
-  <body>
+  <body class="css-selector">
     <center>
-    <img src="static/chitter_icon.png" alt="Chitter icon with chat clouds" style="width: 60px; height: 60;">
-    <h1 style="color:rgb(55, 154, 203)">Signup to Chitter!</h1>
+    <img src="static/icons8-chat-message-96.png" alt="Chitter icon with chat clouds" style="width: 60px; height: 60;">
+    <h1 class="header1">Signup to Chitter!</h1>
 
     <form action="/signup" method="POST">
         {% if errors %}
@@ -23,33 +24,34 @@
         <p>
             <label for="name">Your full name</label>
             <br>
-            <input type="text" name="name" id="'name">
+            <input class="form-input" type="text" name="name" id="'name">
         </p>
         
         <p>
             <label for="email">Your email</label>
             <br>
-            <input type="text" name="email" id="'email">
+            <input class="form-input" type="text" name="email" id="'email">
         </p>
         
         <p>
             <label for="username">Your username</label>
             <br>
-            <input type="text" name="username" id="'username">
+            <input class="form-input" type="text" name="username" id="'username">
         </p>
 
         <p>
             <label for="name">Your password</label>
             <br>
-            <input type="text" name="password" id="'password">
+            <input class="form-input" type="password" name="password" id="'password">
         </p>
         <p>
-            <input type="submit" value="Sign up">
+            <input class="button1" type="submit" value="Sign up">
         </p>
     </form>
     <br>
-    <a href="/">go back</a>
-    </center>
+    <a href="/">
+        <img src="static/icons8-back-64.png" width="30px">
+        </a>    </center>
 
   </body>
 </html>

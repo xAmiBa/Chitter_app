@@ -3,30 +3,37 @@
   <head>
 		<title>Chitter</title>
 		<meta charset=”UTF-8">
+        <link rel="stylesheet" href="static/style.css" />
     </head>
-    <body>
+    <body class="css-selector">
+        {% if user %}
+    
+        <div class="topnav">
+            <a class="active" href="/home">Home</a>
+            <a href="/logout">logout</a>
+          </div>
+        {% endif %}
+
+
         <center>
-        <img src="static/chitter_icon.png" alt="Chitter icon with chat clouds"
+        <img src="static/icons8-chat-message-96.png" alt="Chitter icon with chat clouds"
         style="width: 60px; height: 60;">
-      <h1 style="color:rgb(55, 154, 203)">CHITTER</h1>
+      <h1>CHITTER</h1>
 
       {% if user %}
-      <h3>See what's happening {{user.username}}...</h3>
+      <h3>See what's happening {{user}}...</h3>
       {% else %}
       <h3>See what's happening...</h3>
       {% endif %}
-        </center>
 
         <p class="t-new_peep">
             {% if logged == True  %}
             <form action="/post" method="POST">
                 <p>
-                    <label for="content">New Post</label>
-                    <input type="text" name="content" id="content">
-                    <input type="hidden" name="user_id" id="user_id" value="{{user.id}}">
-                </p>
-                <p>
-                    <input type="submit" value="Add peep">
+                    <input class="form-input2" type="text" name="content" id="content">
+                    <input type="hidden" name="username" id="username" value="{{user}}">
+                    <br>
+                    <input class="button1" type="submit" value="Add peep">
                 </p>
             </form>
             {% endif %}
@@ -34,18 +41,14 @@
     <p>
         {% if peeps %}
         {% for peep in peeps %}
-        <p class="t-peep">{{peep.content}}</p>
-        <p style="color:rgb(228, 202, 33)"><i>by {{users.search_username_by_user_id(peep.user_id)}} at {{peep.date_time}}</i></p>
-        <hr>
+        <div class="post">
+            <p class="t-peep">{{peep.content}}</p>
+            <p class="user"><img src="static/icons8-user-50.png" width="15px">
+            by {{users.search_username_by_user_id(peep.user_id)}} at {{peep.date_time}}</p>
+            </div>
         {% endfor %}
         {% endif %}
     </p>
-    <center>
-    {% if user %}
-    <p>
-        <a href="/logout">Log out</a>
-    </p>
-    {% endif %}
-    </center>
+</center>
   </body>
 </html>

@@ -1,12 +1,17 @@
 import os
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 from lib.database_connection import get_flask_database_connection
 from lib.User import User
 from lib.UserRepository import UserRepository
 from lib.Peep import Peep
 from lib.PeepRepository import PeepRepository
+import os
+
+
 
 app = Flask(__name__)
+# app.secret_key = os.environ.get("SECRET_KEY_SESSION")
+app.secret_key = "khdcvkwvgckwhvcwv45"
 
 # GET /
 @app.route('/', methods=['GET'])
@@ -84,41 +89,60 @@ def post_login():
         peeps = peep_repository.all()
         users = UserRepository(connection)
         logged = True
-        return render_template(f'home.html', users=users, peeps=peeps, logged=logged, user=users.search_by_username(input_username))
+        # this session is logged in if user username email and password
+        session['username'] = input_username
+        session['logged'] = True
+        return render_template(f'home.html', users=users, peeps=peeps, logged=logged, user=input_username)
 
 # GET /home
     # everyone can acces but not post   
 @app.route('/home', methods=['GET'])
 def get_homepage():
+    
     connection = get_flask_database_connection(app)
     users = UserRepository(connection)
 
     peep_repository = PeepRepository(connection)
     peeps = peep_repository.all()
-    return render_template('home.html', peeps=peeps, users=users)
+
+    if 'username' in session:
+        user = session['username']
+        logged = session['logged']
+        return render_template(f'home.html', users=users, peeps=peeps, logged=logged, user=user)
+    else:
+        return render_template('home.html', peeps=peeps, users=users)
     
 
 # POST /post
 @app.route('/post', methods=['POST'])
 def get_post():
     connection = get_flask_database_connection(app)
-    user_id = request.form['user_id']
+    username = request.form['username']
     content = request.form['content']
+
+    # get user_id
+    users = UserRepository(connection)
+    user = users.search_by_username(username)
+    user_id = user.id
+
     new_peep = Peep(None, content, user_id)
     repository = PeepRepository(connection)
     repository.add(new_peep)
-    peeps = repository.all()
-    users = UserRepository(connection)
+    
     logged = True
-    username = users.search_username_by_user_id(user_id)
-    return render_template(f'home.html', users=users, peeps=peeps, logged=logged, user=users.search_by_username(username))
+    peeps = repository.all()
+    return render_template(f'home.html', users=users, peeps=peeps, logged=logged, user=username)
 
 # GET /home -> logout
 @app.route('/logout', methods=['GET'])
 def get_logout():
+    session.pop('username', None)
     message = "You just logged out. Goodbye!"
     logged = False
     return render_template('index.html', message=message)
 
+
 if __name__ == '__main__':
     app.run(debug=True, port=int(os.environ.get('PORT', 5001)))
+
+

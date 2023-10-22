@@ -24,6 +24,9 @@ class PeepRepository:
         username = "@" + username
         mentions = [peep for peep in peeps if username in peep.content]
         return mentions
+    
+    def get_author(peep):
+         pass
                   
              
         
