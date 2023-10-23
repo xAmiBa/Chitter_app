@@ -47,7 +47,15 @@ In the development of this app, I gained experience in several technologies and 
 
 ## Further Development
 
-Future improvements and features to be considered for the Chitter app include:
+The Chitter app has undergone significant improvements to enhance its functionality and security. These improvements include:
+
+- Passwords are now hidden in input forms for increased security.
+- Password hashing has been implemented to protect user passwords.
+- The user interface has been updated for a more user-friendly experience.
+- HTTP sessions have been added for better user session management.
+
+Additionally, future improvements and features to be considered for the Chitter app include:
+
 - Implementing a more polished and user-friendly user interface using CSS for enhanced UX.
 - Adding email notifications for mentions in peeps.
 - Strengthening the password validation during sign-up.
@@ -104,37 +112,3 @@ Future improvements and features to be considered for the Chitter app include:
    ```bash
    pytest <path_to_test_file_or_directory>
    ```
-## Running the Tests
-
-To run the tests for the Chitter app, follow these steps:
-
-1. Clone the Repository:
-   ```
-   git clone <repository_url>
-   cd chitter-app
-   ```
-
-2. Set Up a Virtual Environment (Optional but Recommended):
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows, use: venv\Scripts\activate
-   ```
-
-3. Install Dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. Run the Tests:
-   ```bash
-   pytest
-   ```
-
-   This will run all the tests in the project and display the results.
-
-5. Run Specific Test(s):
-   ```bash
-   pytest <path_to_test_file_or_directory>
-   ```
-
----
