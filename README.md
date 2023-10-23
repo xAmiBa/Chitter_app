@@ -2,6 +2,8 @@
 
 Chitter is a web application that allows users to post messages (peeps) and view them in reverse chronological order. Users can sign up, log in, and log out to manage their interactions on the platform.
 
+[![Demo](https://github.com/xAmiBa/Chitter_app/blob/main/static/Screenshot%202023-10-23%20at%2020.25.56.png)](https://www.youtube.com/watch?v=mjfXErmTkA0)
+
 ## App Structure
 
 The main application logic is contained in `app.py`, utilizing the Flask web framework. The app has various routes to handle HTTP requests and render corresponding HTML templates. The application interacts with a PostgreSQL database for data storage and retrieval.
