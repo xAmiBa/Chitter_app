@@ -10,8 +10,7 @@ import os
 
 
 app = Flask(__name__)
-# app.secret_key = os.environ.get("SECRET_KEY_SESSION")
-app.secret_key = "khdcvkwvgckwhvcwv45"
+app.secret_key = os.environ.get("SECRET_KEY_SESSION")
 
 # GET /
 @app.route('/', methods=['GET'])
