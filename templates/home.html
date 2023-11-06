@@ -3,7 +3,7 @@
   <head>
 		<title>Chitter</title>
 		<meta charset=”UTF-8">
-        <link rel="stylesheet" href="static/style.css" />
+        <link rel="stylesheet" href="/static/style.css" />
     </head>
     <body class="css-selector">
         {% if user %}
@@ -16,7 +16,7 @@
 
 
         <center>
-        <img src="static/icons8-chat-message-96.png" alt="Chitter icon with chat clouds"
+        <img src="/static/icons8-chat-message-96.png" alt="Chitter icon with chat clouds"
         style="width: 60px; height: 60;">
       <h1>CHITTER</h1>
 
@@ -25,7 +25,7 @@
       {% else %}
       <h3>See what's happening...</h3>
       {% endif %}
-
+            <!-- add new post -->
         <p class="t-new_peep">
             {% if logged == True  %}
             <form action="/post" method="POST">
@@ -38,14 +38,20 @@
             </form>
             {% endif %}
         </p>
+        <!-- post display -->
     <p>
         {% if peeps %}
         {% for peep in peeps %}
         <div class="post">
             <p class="t-peep">{{peep.content}}</p>
-            <p class="user"><img src="static/icons8-user-50.png" width="15px">
+            <p class="user"><img src="/static/icons8-user-50.png" width="15px">
             by {{users.search_username_by_user_id(peep.user_id)}} at {{peep.date_time}}</p>
-            </div>
+            
+            <!-- like button -->
+            <form action="/like/{{peep.id}}" method="POST">
+                <input type="submit" name="like" id="like" value="Like! {{ peep.likes }}">
+            </form>
+        </div>
         {% endfor %}
         {% endif %}
     </p>

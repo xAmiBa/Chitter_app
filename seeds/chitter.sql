@@ -22,21 +22,24 @@
 
 DROP TABLE IF EXISTS peeps CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS likes CASCADE;
+-- DROP TABLE IF EXISTS comments CASCADE;
 
 -- Table 
 CREATE TABLE peeps (
   id SERIAL PRIMARY KEY,
   content text,
   date_time text,
-  user_id int
+  user_id int,
+  likes int
 );
 
 -- sequence of args (content, user_id, date_time)
-INSERT INTO peeps (content, date_time, user_id) VALUES ('I learned SQL today, it was fun!', '2022-10-10 12:24:55', 1);
-INSERT INTO peeps (content, date_time, user_id) VALUES ('What a day, 5k run done! @xAmiBa', '2022-10-17 12:24:55', 2);
-INSERT INTO peeps (content, date_time, user_id) VALUES ('Boris Johnson is crazy...', '2022-10-11 18:24:55', 3);
-INSERT INTO peeps (content, date_time, user_id) VALUES ('Anyone knows good restaurants in Central London?', '2022-10-14 16:24:55', 1);
-INSERT INTO peeps (content, date_time, user_id) VALUES ('#partytime Happy bDay to me!', '2022-10-12 13:24:55', 2);
+INSERT INTO peeps (content, date_time, user_id, likes) VALUES ('I learned SQL today, it was fun!', '2022-10-10 12:24:55', 1, 10);
+INSERT INTO peeps (content, date_time, user_id, likes) VALUES ('What a day, 5k run done! @xAmiBa', '2022-10-17 12:24:55', 2, 20);
+INSERT INTO peeps (content, date_time, user_id, likes) VALUES ('Boris Johnson is crazy...', '2022-10-11 18:24:55', 3, 30);
+INSERT INTO peeps (content, date_time, user_id, likes) VALUES ('Anyone knows good restaurants in Central London?', '2022-10-14 16:24:55', 1, 40);
+INSERT INTO peeps (content, date_time, user_id, likes) VALUES ('#partytime Happy bDay to me!', '2022-10-12 13:24:55', 2, 50);
 
 -- Table 2
 CREATE TABLE users (

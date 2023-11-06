@@ -6,12 +6,10 @@ from lib.UserRepository import UserRepository
 from lib.Peep import Peep
 from lib.PeepRepository import PeepRepository
 import os
+import secrets
 
-
-
-app = Flask(__name__)
-# app.secret_key = os.environ.get("SECRET_KEY_SESSION")
-app.secret_key = "khdcvkwvgckwhvcwv45"
+app = Flask(__name__, static_url_path='/static', static_folder='static')
+app.secret_key = secrets.token_hex(32)
 
 # GET /
 @app.route('/', methods=['GET'])
@@ -88,11 +86,19 @@ def post_login():
         peep_repository = PeepRepository(connection)
         peeps = peep_repository.all()
         users = UserRepository(connection)
+        logged_user = users.search_by_username(input_username)
         logged = True
         # this session is logged in if user username email and password
-        session['username'] = input_username
+        session['username'] = logged_user.username
+        session['user_id'] = logged_user.id
         session['logged'] = True
-        return render_template(f'home.html', users=users, peeps=peeps, logged=logged, user=input_username)
+        return render_template(
+            f'home.html',
+            users=users,
+            peeps=peeps,
+            logged=logged,
+            user=input_username
+            )
 
 # GET /home
     # everyone can acces but not post   
@@ -108,9 +114,19 @@ def get_homepage():
     if 'username' in session:
         user = session['username']
         logged = session['logged']
-        return render_template(f'home.html', users=users, peeps=peeps, logged=logged, user=user)
+        return render_template(
+            f'home.html',
+            users=users,
+            peeps=peeps,
+            logged=logged,
+            user=user
+            )
     else:
-        return render_template('home.html', peeps=peeps, users=users)
+        return render_template(
+            'home.html',
+            peeps=peeps,
+            users=users
+            )
     
 
 # POST /post
@@ -123,6 +139,7 @@ def get_post():
     # get user_id
     users = UserRepository(connection)
     user = users.search_by_username(username)
+    print('HERE: ', username)
     user_id = user.id
 
     new_peep = Peep(None, content, user_id)
@@ -131,7 +148,32 @@ def get_post():
     
     logged = True
     peeps = repository.all()
-    return render_template(f'home.html', users=users, peeps=peeps, logged=logged, user=username)
+    return render_template(
+        f'home.html',
+        users=users,
+        peeps=peeps,
+        logged=logged,
+        user=username
+        )
+
+# POST /like/<post_id>
+@app.route('/like/<post_id>', methods=['POST'])
+def like(post_id):
+    connection = get_flask_database_connection(app)
+    peep_repository = PeepRepository(connection)
+    peep_repository.add_like(post_id)
+    peeps = peep_repository.all()
+    logged = True
+    username = session.get('username')
+    users = UserRepository(connection)
+
+    return render_template(
+        'home.html',
+        users=users,
+        peeps=peeps,
+        logged=logged,
+        user=username
+        )
 
 # GET /home -> logout
 @app.route('/logout', methods=['GET'])
@@ -141,8 +183,8 @@ def get_logout():
     logged = False
     return render_template('index.html', message=message)
 
+    
 
 if __name__ == '__main__':
     app.run(debug=True, port=int(os.environ.get('PORT', 5001)))
-
 

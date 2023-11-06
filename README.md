@@ -51,17 +51,18 @@ In the development of this app, I gained experience in several technologies and 
 
 The Chitter app has undergone significant improvements to enhance its functionality and security. These improvements include:
 
-- Passwords are now hidden in input forms for increased security.
-- Password hashing has been implemented to protect user passwords.
-- The user interface has been updated for a more user-friendly experience.
-- HTTP sessions have been added for better user session management.
+- Passwords are now hidden in input forms for increased security. (✅ IMPLEMENTED)
+- Password hashing has been implemented to protect user passwords. (✅ IMPLEMENTED)
+- The user interface has been updated for a more user-friendly experience - CSS. (✅ IMPLEMENTED)
+- HTTP sessions have been added for better user session management. (✅ IMPLEMENTED)
 
 Additionally, future improvements and features to be considered for the Chitter app include:
 
 - Implementing a more polished and user-friendly user interface using CSS for enhanced UX.
 - Adding email notifications for mentions in peeps.
-- Strengthening the password validation during sign-up.
-- Enhancing security by encrypting the database passwords.
+- Strengthening the password validation during sign-up. Double password input.
+- Likes feature.
+- Comments feature.
 
 ## Workflow
 
