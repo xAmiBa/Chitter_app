@@ -139,6 +139,7 @@ def get_post():
     # get user_id
     users = UserRepository(connection)
     user = users.search_by_username(username)
+    print('HERE: ', username)
     user_id = user.id
 
     new_peep = Peep(None, content, user_id)

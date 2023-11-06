@@ -25,7 +25,7 @@
       {% else %}
       <h3>See what's happening...</h3>
       {% endif %}
-
+            <!-- add new post -->
         <p class="t-new_peep">
             {% if logged == True  %}
             <form action="/post" method="POST">
@@ -38,6 +38,7 @@
             </form>
             {% endif %}
         </p>
+        <!-- post display -->
     <p>
         {% if peeps %}
         {% for peep in peeps %}
@@ -46,6 +47,7 @@
             <p class="user"><img src="/static/icons8-user-50.png" width="15px">
             by {{users.search_username_by_user_id(peep.user_id)}} at {{peep.date_time}}</p>
             
+            <!-- like button -->
             <form action="/like/{{peep.id}}" method="POST">
                 <input type="submit" name="like" id="like" value="Like! {{ peep.likes }}">
             </form>
